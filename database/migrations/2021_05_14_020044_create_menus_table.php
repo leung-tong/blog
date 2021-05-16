@@ -16,8 +16,10 @@ class CreateMenusTable extends Migration
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('pid')->default(0)->comment('父级菜单id');
+            $table->integer('weight')->default(100)->comment('父级菜单id');
             $table->string('name', 25)->default('')->comment('菜单名称');
             $table->string('icon', 255)->default('')->comment('图标');
+            $table->string('url', 255)->default('')->comment('路径');
             $table->timestamps();
             $table->softDeletes()->comment('删除时间');
             $table->engine = 'InnoDB';

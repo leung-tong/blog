@@ -28,7 +28,7 @@ class LoginController extends Controller
         return JsonResponse::fail('账号密码错误');
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         Session::flush();
         return redirect('/admin/login');

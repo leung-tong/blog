@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class IndexController extends Controller
 {
-    
+
     public function index()
     {
-        //
+        // 获取当前登录用户信息
+//        $user = Auth::user()->username;
+//        dd($user);
         return view('backend.index');
     }
 
@@ -21,7 +26,7 @@ class IndexController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
