@@ -24,10 +24,10 @@ class MenusTableSeeder extends Seeder
 
 
             # 二级级菜单
-            ['id' => 5, 'pid' => 2, 'weight' => 100, 'name' => '菜单列表', 'icon' => 'layui-icon-list', 'url' => '/admin/menu/list', 'created_at' => $date, 'updated_at' => $date],
-            ['id' => 6, 'pid' => 3, 'weight' => 100, 'name' => '权限列表', 'icon' => 'layui-icon-list', 'url' => '/admin/perm/list', 'created_at' => $date, 'updated_at' => $date],
+            ['id' => 5, 'pid' => 2, 'weight' => 100, 'name' => '菜单列表', 'icon' => 'layui-icon-list', 'url' => '/admin/menu/index', 'created_at' => $date, 'updated_at' => $date],
+            ['id' => 6, 'pid' => 3, 'weight' => 100, 'name' => '权限列表', 'icon' => 'layui-icon-list', 'url' => '/admin/perm/index', 'created_at' => $date, 'updated_at' => $date],
             ['id' => 7, 'pid' => 3, 'weight' => 100, 'name' => '添加权限', 'icon' => 'layui-icon-add-1', 'url' => '/admin/perm/add', 'created_at' => $date, 'updated_at' => $date],
-            ['id' => 8, 'pid' => 4, 'weight' => 100, 'name' => '用户列表', 'icon' => 'layui-icon-list', 'url' => '/admin/user/list', 'created_at' => $date, 'updated_at' => $date],
+            ['id' => 8, 'pid' => 4, 'weight' => 100, 'name' => '用户列表', 'icon' => 'layui-icon-list', 'url' => '/admin/user/index', 'created_at' => $date, 'updated_at' => $date],
             ['id' => 9, 'pid' => 4, 'weight' => 100, 'name' => '添加用户', 'icon' => 'layui-icon-add-1', 'url' => '/admin/user/add', 'created_at' => $date, 'updated_at' => $date],
 
             # 三级级菜单

@@ -7,8 +7,7 @@
     layui.use('element', function(){
         var element = layui.element;
         var $ = layui.jquery;
-
-        data = {!! \App\Models\Menu::getMenus(); !!}
+        data = {!! $Sidebar !!}
 
         var liStr= "";
         // 遍历生成主菜单
