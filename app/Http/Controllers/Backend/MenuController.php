@@ -29,9 +29,9 @@ class MenuController extends Controller
             $where['name'] = $request->get('name');
         }
 
-        $display = $request->get('display');
-        if (isset($display)) {
-            $where['display'] = $request->get('display');
+        $state = $request->get('state');
+        if (isset($state)) {
+            $where['state'] = $request->get('state');
         }
 
         $params['where'] = $where ?? [];
@@ -42,18 +42,18 @@ class MenuController extends Controller
         return JsonResponse::success('成功', $list, 0, ['count' => $count, 'page' => $params['page'], 'limit' => $params['pagesize']]);
     }
 
-    public function insert(Request $request)
-    {
-        // 需要校验
-        if (!$this->Menu->insertMenu($request->only(['name', 'icon', 'url', 'weight', 'display']))) {
-            return JsonResponse::fail('添加失败');
-        }
-        return JsonResponse::success('添加成功');
-    }
+//    public function insert(Request $request)
+//    {
+//        // 需要校验
+//        if (!$this->Menu->insertMenu($request->only(['name', 'icon', 'url', 'weight', 'state']))) {
+//            return JsonResponse::fail('添加失败');
+//        }
+//        return JsonResponse::success('添加成功');
+//    }
 
     public function update(Request $request)
     {
-        if (!$this->Menu->updateMenu($request->only(['id', 'name', 'icon', 'url', 'weight', 'display']))) {
+        if (!$this->Menu->updateMenu($request->only(['id', 'name', 'icon', 'url', 'weight', 'state']))) {
             return JsonResponse::fail('修改失败');
         }
         return JsonResponse::success('修改成功');
@@ -70,6 +70,7 @@ class MenuController extends Controller
         return JsonResponse::success('删除成功');
     }
 
+    // 导航为全页面共享数据，返回写在providers/AppServiceProvider内
     public function sidebar()
     {
         $sidebar = $this->Menu->getSidebar();

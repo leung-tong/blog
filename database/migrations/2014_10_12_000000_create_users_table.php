@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('token')->default('');
             $table->rememberToken();
             $table->timestamps();
-            $table->tinyInteger('del')->default(0)->comment('是否删除:1删除 0正常');
+            $table->tinyInteger('state')->default(0)->comment('是否显示 -1删除,0正常,1禁用');
             $table->engine = 'InnoDB';
             $table->charset = 'utf8mb4';
             $table->collation = 'utf8mb4_general_ci';

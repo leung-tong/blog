@@ -3,10 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\DB;
-
 
 class Menu extends Model
 {
@@ -22,35 +19,35 @@ class Menu extends Model
         }
 
         $offset = ($params['page'] - 1) * $params['pagesize'];
-        return $sql->where('del', 0)->offset($offset)->limit($params['pagesize'])->get()->toArray();
+        return $sql->offset($offset)->limit($params['pagesize'])->get()->toArray();
     }
 
     // 根据条件获取菜单列表总数
     public function getCount($where)
     {
-        $sql = Menu::query();
+        $sql = self::query();
         if (empty($params['where'])) {
             $sql->where($where);
         }
-        return $sql->where('del', 0)->count();
+        return $sql->count();
     }
 
     // 根据Id更新
     public function updateMenu($params)
     {
-        return Menu::query()->where('id', $params['id'])->update($params);
+        return self::query()->where('id', $params['id'])->update($params);
     }
 
     // 根据id软删除菜单
     public function deleteById($id)
     {
-        return Menu::query()->whereIn('id',$id)->update(['del' => 1]);
+        return self::query()->whereIn('id',$id)->delete();
     }
 
     // 获取所有可用导航
     public function getSidebar()
     {
-        $menus = Menu::query()->select(['id', 'name', 'pid', 'icon', 'url', 'display'])->where(['display' => 0, 'del' => 0])->orderBy('weight', 'desc')->get()->toArray();
+        $menus = self::query()->select(['id', 'name', 'pid', 'icon', 'url', 'state'])->where('state' , 0)->orderBy('weight', 'desc')->get()->toArray();
         return $this->loopSidebar($menus, 0);
     }
 

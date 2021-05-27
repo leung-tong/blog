@@ -8,10 +8,11 @@
                     <div class="layui-inline">
                         <input class="layui-input" name="name" id="name" autocomplete="off">
                     </div>
+                    菜单状态：
                     <div class="layui-input-inline">
                         <div class="layui-form">
-                            <select name="display" lay-verify="" lay-filter="display" id="display">
-                                <option value="">全部菜单</option>
+                            <select name="state" lay-verify="" lay-filter="state" id="state">
+                                <option value="">全部</option>
                                 <option value="1">正常</option>
                                 <option value="0">禁用</option>
                             </select>
@@ -33,9 +34,9 @@
             <button class="layui-btn layui-btn-sm" lay-event="delete">批量删除</button>
         </div>
     </script>
-    <script type="text/html" id="editMenu">
-        <div class="layui-fluid myform">
-            <form class="layui-form layui-form-pane" action="">
+    <script type="text/html" id="popForm">
+        <div class="layui-fluid">
+            <form class="layui-form layui-form-pane popForm" action="">
                 <div class="layui-form-item">
                     <label class="layui-form-label">名称</label>
                     <div class="layui-input-block">
@@ -65,8 +66,8 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label">是否显示</label>
                     <div class="layui-input-block">
-                        <input type="radio" name="display" value="0" title="显示" checked="">
-                        <input type="radio" name="display" value="1" title="隐藏">
+                        <input type="radio" name="state" value="0" title="显示" checked="">
+                        <input type="radio" name="state" value="1" title="隐藏">
                     </div>
                 </div>
             </form>
@@ -127,8 +128,8 @@
                         }
                         , {field: 'weight', title: '比重', align: 'center',}
                         , {
-                            field: 'display', title: '是否显示', align: 'center', templet: function (d) {
-                                return d.display === 0 ? '显示' : '隐藏'
+                            field: 'state', title: '是否显示', align: 'center', templet: function (d) {
+                                return d.state === 0 ? '显示' : '隐藏'
                             }
                         } //单元格内容水平居中
                         , {fixed: 'right', title: '操作', toolbar: '#barDemo', align: 'center', width: 170}
@@ -148,7 +149,7 @@
                             type: 'post',
                             data: {id: ids},
                             success: function (data) {
-                                if (data.status === false) {
+                                if (data.state === false) {
                                     layer.msg(data.msg, {icon: 5});//失败的表情
                                     return;
                                 } else {
@@ -168,7 +169,7 @@
             // 行工具栏事件
             table.on('tool(test)', function (obj) {
                 var data = obj.data;
-                var content = $('#editMenu').html();
+                var content = $('#popForm').html();
                 if (obj.event === 'del') {
                     layer.confirm('确认删除吗', function (index) {
                         $.ajax({
@@ -176,7 +177,7 @@
                             type: 'post',
                             data: {id: data.id},
                             success: function (data) {
-                                if (data.status === false) {
+                                if (data.state === false) {
                                     layer.msg(data.msg, {icon: 5});//失败的表情
                                     return;
                                 } else {
@@ -199,11 +200,11 @@
                         , area: ['500px', '500px']
                         , btn: ['提交', '取消']
                         , success: function () {
-                            $(document).find(".myform input[name='name']").val(data.name)
-                            $(document).find(".myform input[name='icon']").val(data.icon)
-                            $(document).find(".myform input[name='url']").val(data.url)
-                            $(document).find(".myform input[name='weight']").val(data.weight)
-                            $(document).find(".myform input:radio[name='display'][value='" + data.display + "']").prop("checked", true);
+                            $(".popForm input[name='name']").val(data.name)
+                            $(".popForm input[name='icon']").val(data.icon)
+                            $(".popForm input[name='url']").val(data.url)
+                            $(".popForm input[name='weight']").val(data.weight)
+                            $(".popForm input:radio[name='state'][value='" + data.state + "']").prop("checked", true);
                             form.render()
                         }
                         , btn1: function () {
@@ -212,14 +213,14 @@
                                 type: 'post',
                                 data: {
                                     id: data.id,
-                                    name: $(document).find(".myform input[name='name']").val(),
-                                    icon: $(document).find(".myform input[name='icon']").val(),
-                                    url: $(document).find(".myform input[name='url']").val(),
-                                    weight: $(document).find(".myform input[name='weight']").val(),
-                                    display: $(document).find(".myform input:radio[name='display']:checked").val(),
+                                    name: $(".popForm input[name='name']").val(),
+                                    icon: $(".popForm input[name='icon']").val(),
+                                    url: $(".popForm input[name='url']").val(),
+                                    weight: $(".popForm input[name='weight']").val(),
+                                    state: $(".popForm input:radio[name='state']:checked").val(),
                                 },
                                 success: function (data) {
-                                    if (data.status === false) {
+                                    if (data.state === false) {
                                         layer.msg(data.msg, {icon: 5});//失败的表情
                                         return;
                                     } else {
@@ -246,7 +247,7 @@
             var active = {
                 reload: function () {
                     var name = $('#name').val();
-                    var display = $("#display option:selected").val();
+                    var state = $("#state option:selected").val();
                     //执行重载
                     table.reload('testReload', {
                         page: {
@@ -254,7 +255,7 @@
                         }
                         , where: {
                             name: name,
-                            display: display
+                            state: state
                         }
                     }, 'data');
                 }
