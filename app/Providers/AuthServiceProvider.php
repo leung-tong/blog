@@ -29,7 +29,7 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 //        Gate::define('admin/user/index', 'PostPolicy@index');
-        dd(\Auth::user());
+//        dd(\Auth::user());
 //        dd(\Illuminate\Http\Request::route());
         // uid,get,admin/user/index
         // get
