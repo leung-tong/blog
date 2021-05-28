@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         // 加载导航栏数据
-//        View::share('Sidebar', (new MenuController)->sidebar());
+        View::share('Sidebar', (new MenuController)->sidebar());
     }
 
     /**
